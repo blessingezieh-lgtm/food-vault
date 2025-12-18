@@ -55,8 +55,6 @@ export const createSavingsPlan = async (req, res, next) => {
   }
 };
 
-
-
 export const getSavingsPlan = async (req, res, next) => {
     try {
         const savingsPlan = await savingsPlan.findOne({
