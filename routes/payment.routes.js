@@ -1,5 +1,6 @@
 import express from "express";
 import paymentController from "../controllers/payment.controller.js";
+import webhookController from "../controllers/webhook.controller.js"; // Import webhook controller
 import auth from "../middleware/auth.middleware.js";
 
 const router = express.Router();
@@ -15,7 +16,7 @@ router.get("/transactions", paymentController.getTransactions);
 router.post(
     "/webhook/paystack",
     express.raw({ type: "application/json" }),
-    paymentController.paystackWebhook
+    webhookController // Use the dedicated webhook controller
 );
 
 export default router;

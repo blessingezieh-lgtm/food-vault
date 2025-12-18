@@ -69,14 +69,15 @@ app.use(errorHandler);
 
 import { swaggerDocs } from "./utils/swagger.js";
 
-connectDB().then(() => {
-  app.listen(PORT, () => {
-
-    swaggerDocs(app);
-
+if (process.env.NODE_ENV !== "test") {
+  connectDB().then(() => {
+    app.listen(PORT, () => {
+      swaggerDocs(app);
+      console.log(`Server  is running  `);
+    });
+  }).catch((err) => {
+    console.log("Failed to connect to DB:", err);
   });
-}).catch((err) => {
-  console.log("Failed to connect to DB:", err);
-});
+}
 
 export default app;
