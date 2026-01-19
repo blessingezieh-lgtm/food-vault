@@ -185,7 +185,7 @@ export const logout = async (req, res, next) => {
 };
 
 // Get current user
- export const getMe = async (req, res, next) => {
+export const getMe = async (req, res, next) => {
     try {
         const user = await User.findById(req.userId).select("-password -refreshToken");
         const wallet = await Wallet.findOne({ user: req.userId });
@@ -209,3 +209,4 @@ export default {
     logout,
     getMe
 };
+

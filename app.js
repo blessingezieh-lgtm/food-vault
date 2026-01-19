@@ -67,7 +67,7 @@ app.post("/api/v1/payments/webhook/paystack", express.raw({ type: "application/j
 app.use(errorHandler);
 
 
-import { swaggerDocs } from "./utils/swagger.js";
+import { swaggerDocs } from "./config/swagger.js";
 
 connectDB().then(() => {
   app.listen(PORT, () => {
