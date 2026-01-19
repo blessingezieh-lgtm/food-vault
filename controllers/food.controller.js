@@ -23,17 +23,5 @@ export const addFood = async (req, res, next) => {
 };
 
 
-// USER: Get all foods
-export const getAllFoods = async (req, res) => {
-  try {
-    // Fetch all food documents from the database
-    const foods = await Food.find();
 
-    // Respond with the list of foods
-    res.status(200).json(foods);
-  } catch (error) {
-    // If any error occurs, respond with status 500 and an error message
-    res.status(500).json({ message: "Failed to fetch food list" });
-  }
-};
 
