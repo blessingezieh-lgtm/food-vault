@@ -221,9 +221,63 @@ export const getTransactions = async (req, res, next) => {
 };
 
 
+// --- CONTROLLER: Paystack Webhook ---
+export const paystackWebhook = async (req, res, next) => {
+    try {
+        const event = req.body;
+
+        // We only process successful charge events
+        if (event.event !== "charge.success") {
+            return res.status(200).json({
+                success: true,
+                message: "Event received"
+            });
+        }
+
+        const paystackData = event.data;
+
+        // Find our transaction using the Paystack reference
+        const transaction = await Transaction.findOne({
+            paystackReference: paystackData.reference
+        });
+
+        if (!transaction) {
+            return res.status(404).json({
+                success: false,
+                message: "Transaction not found"
+            });
+        }
+
+        // Prevent processing the same payment twice
+        if (transaction.status === "successful") {
+            return res.status(200).json({
+                success: true,
+                message: "Transaction already processed"
+            });
+        }
+
+        // Process the successful transaction
+        await processSuccessfulTransaction(
+            transaction._id,
+            paystackData
+        );
+
+        return res.status(200).json({
+            success: true,
+            message: "Webhook processed successfully"
+        });
+
+    } catch (error) {
+        next(error);
+    }
+};
+
 export default {
     initializePayment,
     verifyPayment,
-    getTransactions
-};
+    getTransactions,
+    paystackWebhook
+};  
+
+
 
