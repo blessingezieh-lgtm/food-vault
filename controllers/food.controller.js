@@ -23,5 +23,20 @@ export const addFood = async (req, res, next) => {
 };
 
 
+// Get all food items
+export const getAllFoods = async (req, res, next) => {
+  try {
+    const foods = await Food.find();
+
+    res.status(200).json({
+      success: true,
+      foods
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+
 
 
