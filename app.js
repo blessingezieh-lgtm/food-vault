@@ -31,11 +31,9 @@ app.use(express.json());
 const allowedOrigins = [
   'http://localhost:3000',
   'http://localhost:5173',
-  'https://foodvault-36sx.onrender.com',
+  'https://foodvault-six.vercel.app',
   process.env.FRONTEND_URL,
 ].filter(Boolean);
-
-
 
 app.use(cors({
   origin: function (origin, callback) {
@@ -50,9 +48,10 @@ app.use(cors({
     }
   },
   credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
+
 
 
 app.use("/api/v1/auth", authRoutes);
