@@ -1,12 +1,6 @@
 import User from "../models/user.model.js";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import { JWT_EXPIRES_IN, JWT_SECRET } from "../config/env.js";
-
 import Wallet from "../models/wallet.js";
 import { generateTokens } from "../utils/generateTokens.js";
-
-
 
 // Register user
 export const register = async (req, res, next) => {
@@ -15,6 +9,7 @@ export const register = async (req, res, next) => {
 
         // Check if user exists
         const existingUser = await User.findOne({ email });
+       
         if (existingUser) {
             return res.status(400).json({
                 success: false,
