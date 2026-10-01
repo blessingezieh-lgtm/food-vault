@@ -61,7 +61,6 @@ app.use("/api/v1/foods", foodRoutes);
 app.use("/api/v1/payments", paymentRoutes);
 app.use("/api/v1/crypto", cryptoRoutes);
 
-app.post("/api/v1/payments/webhook/paystack", express.raw({ type: "application/json" }), paymentRoutes)
 
 app.use(errorHandler);
 
